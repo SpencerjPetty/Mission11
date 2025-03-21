@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Water/AllProjects": {
+    "/api/Book/AllBooks": {
       "get": {
         "tags": [
-          "Water"
+          "Book"
         ],
         "parameters": [
           {
@@ -27,6 +27,22 @@
               "type": "integer",
               "format": "int32",
               "default": 1
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "title"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "asc"
             }
           }
         ],
