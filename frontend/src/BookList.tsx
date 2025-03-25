@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Book } from './types/Book';
 
-function BookList() {
+function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
   const [pageNum, setPageNum] = useState<number>(1);
@@ -12,10 +12,17 @@ function BookList() {
 
   useEffect(() => {
     const fetchBooks = async () => {
+      const categoryParams = selectedCategories
+        .map((category) => `categories=${encodeURIComponent(category)}`)
+        .join('&');
+
       const response = await fetch(
-        `https://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+        `https://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}&sortOrder=${sortOrder}${
+          categoryParams ? `&${categoryParams}` : ''
+        }`,
         { credentials: 'include' }
       );
+
       const data = await response.json();
       setBooks(data.books);
       setTotalNumBooks(data.totalNumBooks);
@@ -23,7 +30,7 @@ function BookList() {
     };
 
     fetchBooks();
-  }, [pageSize, pageNum, sortBy, sortOrder]);
+  }, [pageSize, pageNum, sortBy, sortOrder, selectedCategories]);
 
   return (
     <div className="container mt-4">

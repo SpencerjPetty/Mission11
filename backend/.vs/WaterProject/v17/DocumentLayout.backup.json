@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\spenc\\Mission11\\backend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{49E81F4A-8D4F-4EC2-9502-9FA0BE3CFFE2}|WaterProject.API\\WaterProject.API.csproj|c:\\users\\spenc\\mission11\\backend\\waterproject.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49E81F4A-8D4F-4EC2-9502-9FA0BE3CFFE2}|WaterProject.API\\WaterProject.API.csproj|solutionrelative:waterproject.api\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookController.cs",
+              "DocumentMoniker": "C:\\Users\\spenc\\Mission11\\backend\\WaterProject.API\\Controllers\\BookController.cs",
+              "RelativeDocumentMoniker": "WaterProject.API\\Controllers\\BookController.cs",
+              "ToolTip": "C:\\Users\\spenc\\Mission11\\backend\\WaterProject.API\\Controllers\\BookController.cs",
+              "RelativeToolTip": "WaterProject.API\\Controllers\\BookController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T00:50:48.332Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -26,8 +26,23 @@
         "Name": "sortOrder",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "categories",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WaterProject.API.Controllers.BookController",
+    "Method": "GetCategories",
+    "RelativePath": "api/Book/GetCategories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
