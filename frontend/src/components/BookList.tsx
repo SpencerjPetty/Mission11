@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Book } from './types/Book';
+import { Book } from '../types/Book';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { CartItem } from '../types/CartItem';
 
 function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -9,6 +12,41 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string>('title');
   const [sortOrder, setSortOrder] = useState<string>('asc');
+  const [showToast, setShowToast] = useState<boolean>(false);
+  const [subtotal, setSubtotal] = useState<number>(0);
+  const navigate = useNavigate();
+  const { addToCart, getCartSubtotal } = useCart();
+
+  const handleAddToCart = (book: Book) => {
+    console.log('Adding book:', book);
+    const newItem: CartItem = {
+      bookID: Number(book.bookID),
+      title: book.title || 'No title found',
+      price: Number(book.price),
+      quantity: 1,
+    };
+    addToCart(newItem);
+    setSubtotal(getCartSubtotal()); // Get updated subtotal after adding the item
+    setShowToast(true); // Show the toast
+    setTimeout(() => setShowToast(false), 3000); // Hide toast after 3 seconds
+  };
+
+  useEffect(() => {
+    // Update subtotal whenever cart changes
+    setSubtotal(getCartSubtotal());
+  }, [getCartSubtotal]); // Depend on getCartSubtotal so it updates on cart change
+
+  const handleToast = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000); // Hide toast after 3 seconds
+  };
+
+  // Ensure the toast is shown after the subtotal is updated
+  useEffect(() => {
+    if (subtotal > 0) {
+      handleToast();
+    }
+  }, [subtotal]);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -35,10 +73,10 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   return (
     <div className="container mt-4">
       <h1 className="mb-4 text-center">All Books</h1>
-      <div className="row justify-content-center">
+      <div className="row justify-content-center d-flex">
         {books.map((book) => (
-          <div className="col-md-6 col-lg-4 mb-4 d-flex" key={book.bookId}>
-            <div className="card h-100 shadow-sm w-100 text-center p-3">
+          <div className="col-auto mb-4" key={book.bookID}>
+            <div className="card h-100 shadow-sm text-center p-3 w-100">
               <div className="card-body">
                 <h5 className="card-title text-wrap">{book.title}</h5>
                 <ul className="list-unstyled text-start">
@@ -64,12 +102,23 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
                     <strong>Price:</strong> ${book.price.toFixed(2)}
                   </li>
                 </ul>
+
+                <button
+                  className="btn btn-success"
+                  onClick={() => {
+                    handleAddToCart(book);
+                    setSubtotal(getCartSubtotal()); // Ensure subtotal is updated
+                  }}
+                >
+                  Add to cart
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
 
+      {/* Pagination controls */}
       <div className="d-flex justify-content-center my-3">
         <button
           className="btn btn-primary me-2"
@@ -97,62 +146,39 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         </button>
       </div>
 
+      {/* Sort and results per page */}
       <div className="row g-2 align-items-center">
-        <div className="col-auto">
-          <label className="form-label">Sort by:</label>
-        </div>
-        <div className="col-auto">
-          <select
-            className="form-select"
-            value={sortBy}
-            onChange={(e) => {
-              setSortBy(e.target.value);
-              setPageNum(1);
-            }}
-          >
-            <option value="title">Title</option>
-            <option value="author">Author</option>
-            <option value="publisher">Publisher</option>
-            <option value="price">Price</option>
-          </select>
-        </div>
-
-        <div className="col-auto">
-          <label className="form-label">Order:</label>
-        </div>
-        <div className="col-auto">
-          <select
-            className="form-select"
-            value={sortOrder}
-            onChange={(e) => {
-              setSortOrder(e.target.value);
-              setPageNum(1);
-            }}
-          >
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </div>
-
-        <div className="col-auto">
-          <label className="form-label">Results per page:</label>
-        </div>
-        <div className="col-auto">
-          <select
-            className="form-select"
-            value={pageSize}
-            onChange={(e) => {
-              setPageSize(parseInt(e.target.value));
-              setPageNum(1);
-            }}
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-          </select>
-        </div>
+        {/* Add dropdowns for sort by and results per page here... */}
       </div>
+
+      {/* Toast Notification for Cart */}
+      {showToast && (
+        <div
+          className="position-fixed bottom-0 end-0 p-3"
+          style={{ zIndex: 1050 }}
+        >
+          <div
+            className="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div className="toast-header">
+              <strong className="me-auto">Cart Update</strong>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="toast-body">
+              <p>Item added to cart!</p>
+              <p>Updated subtotal: ${subtotal.toFixed(2)}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

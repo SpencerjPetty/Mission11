@@ -140,7 +140,6 @@ C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Debug\net8.0\refint\WaterP
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Debug\net8.0\WaterProject.API.pdb
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Debug\net8.0\WaterProject.API.genruntimeconfig.cache
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Debug\net8.0\ref\WaterProject.API.dll
-C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\Humanizer.dll
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
