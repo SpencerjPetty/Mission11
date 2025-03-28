@@ -9,10 +9,17 @@ function BookListPage() {
 
   return (
     <div className="container mt-4">
-      <CartSummary />
       <div className="row bg-primary text-white">
         <WelcomeBand />
       </div>
+
+      {/* Cart Summary placed here within page layout */}
+      <div className="row">
+        <div className="col-12">
+          <CartSummary />
+        </div>
+      </div>
+
       <div className="row">
         <div className="col-md-3">
           <CategoryFilter
