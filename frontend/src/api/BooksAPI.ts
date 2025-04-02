@@ -5,7 +5,7 @@ interface FetchBooksResponse {
   totalNumBooks: number;
 }
 
-const BASE_URL = 'https://localhost:5000/api/Book';
+const BASE_URL = 'https://bookstore-petty-backend.azurewebsites.net/api/Book';
 
 export const fetchBooks = async (
   pageSize: number,

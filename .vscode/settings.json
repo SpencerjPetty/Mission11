@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "undefined/subscriptions/bfbfb7c6-fbd2-49c7-af44-5ad198187f2f/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/Bookstore-Petty-Backend",
+  "appService.deploySubpath": "backend\\WaterProject.API\\publish"
+}
