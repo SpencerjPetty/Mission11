@@ -33,7 +33,6 @@ namespace WaterProject.API.Controllers
                 "title" => sortOrder.ToLower() == "asc" ? query.OrderBy(b => b.Title) : query.OrderByDescending(b => b.Title),
                 "author" => sortOrder.ToLower() == "asc" ? query.OrderBy(b => b.Author) : query.OrderByDescending(b => b.Author),
                 "publisher" => sortOrder.ToLower() == "asc" ? query.OrderBy(b => b.Publisher) : query.OrderByDescending(b => b.Publisher),
-                "price" => sortOrder.ToLower() == "asc" ? query.OrderBy(b => b.Price) : query.OrderByDescending(b => b.Price),
                 _ => query.OrderBy(b => b.Title)
             };
 
@@ -63,5 +62,52 @@ namespace WaterProject.API.Controllers
 
             return Ok(categories);
         }
+
+        [HttpPost("AddBook")]
+        public IActionResult AddBook([FromBody] Book newBook)
+        {
+            _context.Books.Add(newBook);
+            _context.SaveChanges();
+            return Ok(newBook);
+        }
+
+        [HttpPut("UpdateBook/{id}")]
+        public IActionResult UpdateBook(int id,[FromBody] Book updatedBook)
+        {
+            var bookToUpdate = _context.Books.Find(id);
+            if (bookToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            bookToUpdate.Title = updatedBook.Title;
+            bookToUpdate.Author = updatedBook.Author;
+            bookToUpdate.Publisher = updatedBook.Publisher;
+            bookToUpdate.Category = updatedBook.Category;
+            bookToUpdate.ISBN = updatedBook.ISBN;
+            bookToUpdate.Classification = updatedBook.Classification;
+            bookToUpdate.PageCount = updatedBook.PageCount;
+            bookToUpdate.Price = updatedBook.Price;
+
+            _context.Books.Update(bookToUpdate);
+            _context.SaveChanges();
+
+            return Ok(bookToUpdate);
+        }
+
+        [HttpDelete("DeleteBook/{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            var bookToDelete = _context.Books.Find(id);
+            if (bookToDelete == null)
+            {
+                return NotFound(new { message = "Book not found" });
+            }
+
+            _context.Books.Remove(bookToDelete);
+            _context.SaveChanges();
+
+            return NoContent();
+        }   
     }
 }

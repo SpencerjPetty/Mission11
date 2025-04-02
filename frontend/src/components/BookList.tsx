@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Book } from '../types/Book';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { CartItem } from '../types/CartItem';
+import { fetchBooks } from '../api/BooksAPI';
+import Pagination from './Pagination';
 
 function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
@@ -16,9 +18,10 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [subtotal, setSubtotal] = useState<number>(0);
   const navigate = useNavigate();
   const { addToCart, getCartSubtotal } = useCart();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleAddToCart = (book: Book) => {
-    console.log('Adding book:', book);
     const newItem: CartItem = {
       bookID: Number(book.bookID),
       title: book.title || 'No title found',
@@ -49,26 +52,36 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   }, [subtotal]);
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      const categoryParams = selectedCategories
-        .map((category) => `categories=${encodeURIComponent(category)}`)
-        .join('&');
+    const loadBooks = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchBooks(
+          pageSize,
+          pageNum,
+          sortBy,
+          sortOrder,
+          selectedCategories
+        );
 
-      const response = await fetch(
-        `https://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}&sortBy=${sortBy}&sortOrder=${sortOrder}${
-          categoryParams ? `&${categoryParams}` : ''
-        }`,
-        { credentials: 'include' }
-      );
-
-      const data = await response.json();
-      setBooks(data.books);
-      setTotalNumBooks(data.totalNumBooks);
-      setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
+        setBooks(data.books);
+        setTotalPages(Math.ceil(data.totalNumBooks / pageSize));
+      } catch (error) {
+        setError((error as Error).message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchBooks();
-  }, [pageSize, pageNum, sortBy, sortOrder, selectedCategories]);
+    loadBooks();
+  }, [pageSize, pageNum, sortBy, sortOrder, selectedCategories, totalNumBooks]);
+
+  if (loading) {
+    return <div>Loading books...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error: {error}</div>;
+  }
 
   return (
     <div className="container mt-4">
@@ -118,40 +131,54 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
         ))}
       </div>
 
-      {/* Pagination controls */}
-      <div className="d-flex justify-content-center my-3">
-        <button
-          className="btn btn-primary me-2"
-          disabled={pageNum === 1}
-          onClick={() => setPageNum(pageNum - 1)}
-        >
-          Previous
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            className={`btn btn-outline-primary mx-1 ${pageNum === index + 1 ? 'active' : ''}`}
-            onClick={() => setPageNum(index + 1)}
-            disabled={pageNum === index + 1}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button
-          className="btn btn-primary ms-2"
-          disabled={pageNum === totalPages}
-          onClick={() => setPageNum(pageNum + 1)}
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        currentPage={pageNum}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        totalNumBooks={totalNumBooks}
+        onPageChange={(newPage) => setPageNum(newPage)}
+        onPageSizeChange={(newSize) => {
+          setPageSize(newSize);
+          setPageNum(1);
+        }}
+      />
 
-      {/* Sort and results per page */}
       <div className="row g-2 align-items-center">
-        {/* Add dropdowns for sort by and results per page here... */}
+        <div className="col-auto">
+          <label className="form-label">Sort by:</label>
+        </div>
+        <div className="col-auto">
+          <select
+            className="form-select"
+            value={sortBy}
+            onChange={(e) => {
+              setSortBy(e.target.value);
+              setPageNum(1);
+            }}
+          >
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+          </select>
+        </div>
+        <div className="col-auto">
+          <label className="form-label">Order:</label>
+        </div>
+        <div className="col-auto">
+          <select
+            className="form-select"
+            value={sortOrder}
+            onChange={(e) => {
+              setSortOrder(e.target.value);
+              setPageNum(1);
+            }}
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
       </div>
 
-      {/* Toast Notification for Cart */}
       {showToast && (
         <div
           className="position-fixed bottom-0 end-0 p-3"
