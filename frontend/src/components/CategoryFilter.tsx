@@ -14,8 +14,7 @@ function CategoryFilter({
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          'https://bookstore-petty-backend.azurewebsites.net/api/Book/GetCategories',
-          { credentials: 'include' }
+          'https://bookstore-petty-backend.azurewebsites.net/api/Book/GetCategories'
         );
         const data = await response.json();
         setCategories(data);

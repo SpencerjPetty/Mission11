@@ -10,6 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 builder.Services.AddDbContext<BookDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection"));
@@ -19,8 +22,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontEnd", builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
-            .AllowCredentials()
+        builder.WithOrigins("http://localhost:3000", "https://victorious-sky-0e4a2bf1e.6.azurestaticapps.net" )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -37,7 +39,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowFrontEnd");
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
