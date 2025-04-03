@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Book } from '../types/Book';
-import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { CartItem } from '../types/CartItem';
 import { fetchBooks } from '../api/BooksAPI';
@@ -10,13 +9,12 @@ function BookList({ selectedCategories }: { selectedCategories: string[] }) {
   const [books, setBooks] = useState<Book[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [totalNumBooks, setTotalNumBooks] = useState<number>(0);
+  const [totalNumBooks] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [sortBy, setSortBy] = useState<string>('title');
   const [sortOrder, setSortOrder] = useState<string>('asc');
   const [showToast, setShowToast] = useState<boolean>(false);
   const [subtotal, setSubtotal] = useState<number>(0);
-  const navigate = useNavigate();
   const { addToCart, getCartSubtotal } = useCart();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

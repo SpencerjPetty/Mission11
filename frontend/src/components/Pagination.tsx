@@ -11,7 +11,6 @@ const Pagination = ({
   currentPage,
   totalPages,
   pageSize,
-  totalNumBooks,
   onPageChange,
   onPageSizeChange,
 }: PaginationProps) => {

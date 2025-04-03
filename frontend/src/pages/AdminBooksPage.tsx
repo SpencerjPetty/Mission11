@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Book } from '../types/Book';
-import { useNavigate } from 'react-router-dom';
 import { deleteBook, fetchBooks } from '../api/BooksAPI';
 import Pagination from '../components/Pagination';
 import NewBookForm from '../components/NewBookForm';
@@ -10,11 +9,10 @@ const AdminBooksPage = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [totalNumBooks, setTotalNumBooks] = useState<number>(0);
+  const [totalNumBooks] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [sortBy, setSortBy] = useState<string>('title');
-  const [sortOrder, setSortOrder] = useState<string>('asc');
-  const navigate = useNavigate();
+  const [sortBy] = useState<string>('title');
+  const [sortOrder] = useState<string>('asc');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showForm, setShowForm] = useState<boolean>(false);
