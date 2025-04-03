@@ -1,6 +1,9 @@
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\WaterProject.API.exe
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\appsettings.Development.json
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\appsettings.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\publish\publish\appsettings.Development.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\publish\publish\appsettings.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\publish\Bookstore.sqlite
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\WaterProject.API.dll
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\WaterProject.API.runtimeconfig.json
 C:\Users\spenc\Mission11\backend\WaterProject.API\publish\WaterProject.API.pdb

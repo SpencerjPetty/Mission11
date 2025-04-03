@@ -135,3 +135,6 @@ C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Release\net8.0\refint\Wate
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Release\net8.0\WaterProject.API.pdb
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Release\net8.0\WaterProject.API.genruntimeconfig.cache
 C:\Users\spenc\Mission11\backend\WaterProject.API\obj\Release\net8.0\ref\WaterProject.API.dll
+C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Release\net8.0\publish\appsettings.Development.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Release\net8.0\publish\appsettings.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Release\net8.0\Bookstore.sqlite
