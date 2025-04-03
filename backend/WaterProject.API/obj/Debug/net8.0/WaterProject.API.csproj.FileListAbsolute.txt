@@ -206,9 +206,6 @@ C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\ru\Microsoft.
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\web.config
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\appsettings.Development.json
 C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\appsettings.json
-C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\WaterProject.API.deps.json
-C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\WaterProject.API.runtimeconfig.json
-C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\publish\WaterProject.API.staticwebassets.endpoints.json
+C:\Users\spenc\Mission11\backend\WaterProject.API\bin\Debug\net8.0\Bookstore.sqlite
